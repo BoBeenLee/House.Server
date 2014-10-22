@@ -4,9 +4,9 @@ import com.house.model.JavaBean;
 import java.util.List;
 
 public interface TestMapper {
-	public int deleteTest(int paramInt);
+	public int deleteTest(int no);
 
-	public int addTest(JavaBean paramJavaBean);
+	public int addTest(JavaBean javaBean);
 
 	public List<JavaBean> getTests();
 }

@@ -1,48 +1,52 @@
 package com.house.service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 import com.house.model.Attach;
 import com.house.model.Like;
 import com.house.model.Scrap;
 import com.house.model.User;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface UserService {
-	public boolean addUser(User paramUser, Attach paramAttach);
+	public boolean addUser(User user, Attach attach);
 
-	public boolean modifyUser(User paramUser, Attach paramAttach);
+	public boolean removeUser(long userNo);
 
-	public boolean removeUser(long paramLong);
+	public boolean modifyUser(User user, Attach attach);
 
-	public User getUserById(String paramString);
+	public User getUserById(String usrId);
 
-	public User getUserByNo(long paramLong);
+	public User getUserByNo(long userNo);
 
-	public boolean addLike(Like paramLike);
+	public boolean addLike(Like like);
 
-	public boolean removeLike(long paramLong);
+	public boolean removeLike(long likeNo);
 
-	public boolean removeLikeBySrcNo(long paramLong);
+	public Like getLikeByNo(long likeNo);
 
-	public boolean removeLikeByCateNo(long paramLong, int paramInt);
+	public Like getLikeByNoType(long usrNo, long srcNo, int srcType);
 
-	public Like getLikeByNo(long paramLong);
+	public int getLikeCount(long srcNo, int srcType);
 
-	public Like getLikeByNoType(long paramLong1, long paramLong2, int paramInt);
+	public boolean addScrap(Scrap scrap);
 
-	public int getLikeCount(long paramLong, int paramInt);
+	public boolean removeScrap(long scrapNo);
 
-	public boolean addScrap(Scrap paramScrap);
+	public Scrap getScrapByNo(long scrapNo);
 
-	public boolean removeScrap(long paramLong);
+	public Scrap getScrapByNoType(long usrNo, long srcNo, int srcType);
 
-	public boolean removeScrapBySrcNo(long paramLong);
+	public int getScrapCount(long srcNo, int srcType);
 
-	public boolean removeScrapByCateNo(long paramLong, int paramInt);
+	public boolean removeLikeBySrcNo(long srcNo);
 
-	public Scrap getScrapByNo(long paramLong);
+	public boolean removeScrapBySrcNo(long srcNo);
 
-	public Scrap getScrapByNoType(long paramLong1, long paramLong2, int paramInt);
+	public boolean removeLikeByCateNo(long cateNo, int srcType);
 
-	public int getScrapCount(long paramLong, int paramInt);
+	public boolean removeScrapByCateNo(long cateNo, int srcType);
 }

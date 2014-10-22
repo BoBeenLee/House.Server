@@ -7,34 +7,34 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface InteriorMapper {
-	public int insertInterior(Interior paramInterior);
+	public int insertInterior(Interior interior);
 
-	public int updateInterior(Interior paramInterior);
+	public int updateInterior(Interior interior);
 
-	public int deleteInterior(long paramLong);
+	public int deleteInterior(long interiorNo);
 
-	public Interior getInteriorByNo(long paramLong);
+	public Interior getInteriorByNo(long interiorNo);
 
-	public List<Interior> getInteriorsByCateNo(int paramInt);
+	public List<Interior> getInteriorsByCateNo(int cateNo);
 
-	public int insertInteriorCategory(InteriorCategory paramInteriorCategory);
+	public int insertInteriorCategory(InteriorCategory interiorCategory);
 
-	public int updateInteriorCategory(InteriorCategory paramInteriorCategory);
+	public int updateInteriorCategory(InteriorCategory interiorCategory);
 
-	public int deleteInteriorCategory(int paramInt);
+	public int deleteInteriorCategory(int cateNo);
 
-	public InteriorCategory getInteriorCategoryByNo(int paramInt);
+	public InteriorCategory getInteriorCategoryByNo(int cateNo);
 
-	public int insertComment(Comment paramComment);
+	public int insertComment(Comment comment);
 
-	public int updateComment(Comment paramComment);
+	public int updateComment(Comment comment);
 
-	public int deleteComment(long paramLong);
+	public int deleteComment(long commentNo);
 
-	public Comment getCommentByNo(@Param("commentNo") long paramLong,
-			@Param("profileType") int paramInt);
+	public Comment getCommentByNo(@Param("commentNo") long commentNo,
+			@Param("profileType") int profileType);
 
-	public Comment[] getCommentBySrcNo(@Param("srcNo") long paramLong1,
-			@Param("profileType") int paramInt1,
-			@Param("commentNo") long paramLong2, @Param("pageNum") int paramInt2);
+	public Comment[] getCommentBySrcNo(@Param("srcNo") long srcNo,
+			@Param("profileType") int profileType,
+			@Param("commentNo") long commentNo, @Param("pageNum") int pageNum);
 }

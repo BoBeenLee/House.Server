@@ -4,13 +4,13 @@ import com.house.model.Type;
 import java.util.List;
 
 public interface TypeMapper {
-	public int insertType(Type paramType);
+	public int insertType(Type type);
 
-	public int updateType(Type paramType);
+	public int updateType(Type type);
 
-	public int deleteType(int paramInt);
+	public int deleteType(int no);
 
-	public Type getTypeByNo(int paramInt);
+	public Type getTypeByNo(int no);
 
 	public List<Type> getTypes();
 }
