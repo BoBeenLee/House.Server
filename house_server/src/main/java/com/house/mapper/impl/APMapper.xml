@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.mapper.APMapper">
+	<select id="getInteriorAP0001Res" resultType="com.house.model.code.AP0001$AP0001Res">
+		select interior_no brdNo, usr_nm brdNm, usr_id brdId, ex_url brdProfileImg, subject brdSubject, contents brdContents, tag_nm brdTag, cate_cd brdCate, cate_nm brdCateNm, it.created brdCreated, it.modified brdModified,
+		(select count(*) from hs_like_db where src_no = interior_no and src_type = #{srcType}) brdLikeCnt,
+		(select count(*) from hs_interior_comment_db where src_no = interior_no) brdCommentCnt,
+		(select count(*) from hs_scrap_db where src_no = interior_no and src_type = #{srcType}) brdScrapCnt
+		from hs_interior_db it join hs_user_db us
+		on it.usr_no = us.usr_no
+		join hs_interior_cate_db cd
+		on cd.cate_no = it.cate_cd
+		<if test="poType == 2">
+			join hs_scrap_db sd
+			on sd.usr_no = (select usr_no from hs_user_db where usr_id = #{usrId}) and sd.src_type = #{srcType} and sd.src_no = it.interior_no
+		</if>
+		<if test="poType == 3">
+			join hs_like_db ld
+			on ld.usr_no = (select usr_no from hs_user_db where usr_id = #{usrId}) and ld.src_type = #{srcType} and ld.src_no = it.interior_no
+		</if> 
+		left join hs_attach_db at
+		on it.usr_no = at.upload_usr and at.src_type = #{profileType}
+		where 1 = 1
+		<if test="poType == 1 and usrId != null">
+			and usr_id = #{usrId}
+		</if>
+		<if test="startNo != 0 and upAndDown == true">	
+			and interior_no &lt; #{startNo}
+		</if>
+		<if test="startNo != 0 and upAndDown == false">	
+			and interior_no &gt; #{startNo}
+		</if>
+		<if test="upAndDown == true">	
+			order by interior_no desc
+		</if>
+		<if test="startNo != 0 and upAndDown == false">	
+			order by interior_no asc
+		</if>
+		limit #{pgCnt}  
+	</select>
+	
+	<select id="getSudatalkAP0001Res" resultType="com.house.model.code.AP0001$AP0001Res">
+		select talk_no brdNo, usr_nm brdNm, usr_id brdId, ex_url brdProfileImg, subject brdSubject, contents brdContents, tag_nm brdTag, cate_cd brdCate, cate_nm brdCateNm, st.created brdCreated, st.modified brdModified,  
+		(select count(*) from hs_like_db where src_no = talk_no and src_type = #{srcType}) brdLikeCnt,
+		(select count(*) from hs_sudatalk_comment_db where src_no = talk_no) brdCommentCnt,
+		(select count(*) from hs_scrap_db where src_no = talk_no and src_type = #{srcType}) brdScrapCnt
+		from hs_sudatalk_db st join hs_user_db us
+		on st.usr_no = us.usr_no
+		join hs_sudatalk_cate_db cd
+		on cd.cate_no = st.cate_cd
+		<if test="poType == 2">
+			join hs_scrap_db sd
+			on sd.usr_no = (select usr_no from hs_user_db where usr_id = #{usrId}) and sd.src_type = #{srcType} and sd.src_no = st.talk_no
+		</if>
+		<if test="poType == 3">
+			join hs_like_db ld
+			on ld.usr_no = (select usr_no from hs_user_db where usr_id = #{usrId}) and ld.src_type = #{srcType} and ld.src_no = st.talk_no
+		</if>
+		left join hs_attach_db at
+		on st.usr_no = at.upload_usr and at.src_type = #{profileType}
+		where 1 = 1
+		<if test="poType == 1 and usrId != null">
+			and usr_id = #{usrId}
+		</if>
+		<if test="startNo != 0 and upAndDown == true">	
+			and talk_no &lt; #{startNo}
+		</if>
+		<if test="startNo != 0 and upAndDown == false">	
+			and talk_no &gt; #{startNo}
+		</if>
+		<if test="upAndDown == true">	
+			order by talk_no desc
+		</if>
+		<if test="startNo != 0 and upAndDown == false">	
+			order by talk_no asc
+		</if>
+		limit #{pgCnt}
+	</select>
+	
+	<select id="getInteriorAP0003" resultType="com.house.model.code.AP0003">
+		select interior_no brdNo, usr_nm brdNm, usr_id brdId, ex_url brdProfileImg, subject brdSubject, contents brdContents, tag_nm brdTag, cate_cd brdCate, cate_nm brdCateNm, it.created brdCreated, it.modified brdModified,
+		(select count(*) from hs_like_db where src_no = interior_no and src_type = #{srcType}) brdLikeCnt,
+		(select count(*) from hs_interior_comment_db where src_no = interior_no) brdCommentCnt,
+		(select count(*) from hs_scrap_db where src_no = interior_no and src_type = #{srcType}) brdScrapCnt
+		from hs_interior_db it join hs_user_db us
+		on it.usr_no = us.usr_no
+		join hs_interior_cate_db cd
+		on cd.cate_no = it.cate_cd
+		left join hs_attach_db at
+		on it.usr_no = at.upload_usr and at.src_type = #{profileType}
+		where interior_no = #{brdNo}
+	</select>
+	<select id="getSudatalkAP0003" resultType="com.house.model.code.AP0003">
+		select talk_no brdNo, usr_nm brdNm, usr_id brdId, ex_url brdProfileImg, subject brdSubject, contents brdContents, tag_nm brdTag, cate_cd brdCate, cate_nm brdCateNm, st.created brdCreated, st.modified brdModified,
+		(select count(*) from hs_like_db where src_no = talk_no and src_type = #{srcType}) brdLikeCnt,
+		(select count(*) from hs_sudatalk_comment_db where src_no = talk_no) brdCommentCnt,
+		(select count(*) from hs_scrap_db where src_no = talk_no and src_type = #{srcType}) brdScrapCnt
+		from hs_sudatalk_db st join hs_user_db us
+		on st.usr_no = us.usr_no
+		join hs_sudatalk_cate_db cd
+		on cd.cate_no = st.cate_cd
+		left join hs_attach_db at
+		on st.usr_no = at.upload_usr and at.src_type = #{profileType}
+		where talk_no = #{brdNo}
+	</select>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.mapper.UserMapper">
+	<insert id="insertUser" parameterType="com.house.model.User" useGeneratedKeys="true" keyProperty="usrNo" keyColumn="usr_no">
+		insert into HS_USER_DB (usr_no, usr_sts, usr_nm, usr_id, usr_pw, usr_ss, termsyn, ps_platform, ps_id, ps_revokeyn, ps_appver, ps_devicenm, modified, created)
+			values(to_number(to_char(now(), 'YYYYMMDDHH24MISS') || to_char(
+				(select case count(*) when 0 then 1 else max(to_number(substring(to_char(usr_no, '9999999999999999999') from 16), '00000')) + 1 end 
+				from HS_USER_DB
+				where to_char(usr_no, '9999999999999999999') like ('%' || to_char(now(), 'YYYYMMDDHH24MISS') || '%'))
+			, '00000'), '99999999999999999999'), #{usrSts}, #{usrNm}, #{usrId}, #{usrPw}, 
+			#{usrSs}, #{termsYN}, #{psPlatform}, #{psId}, #{psRevokeYN}, #{psAppVer}, #{deviceNM}, #{modified}, #{created})
+	</insert>
+	
+	<update id="updateUser" parameterType="com.house.model.User">
+		update HS_USER_DB
+		set	usr_sts = #{usrSts},
+			usr_nm = #{usrNm}, 
+			usr_pw = #{usrPw}, 
+			ps_platform = #{psPlatform},
+			ps_id = #{psId},
+			ps_revokeYN = #{psRevokeYN}, 
+			ps_appVer = #{psAppVer}, 
+			ps_deviceNM = #{deviceNM}, 
+			modified = #{modified}
+		where usr_no = #{usrNo}
+	</update>
+	
+	<delete id="deleteUser">
+		delete from HS_USER_DB
+		where usr_no = #{userNo}
+	</delete>
+	
+	<select id="getUserById" resultType="com.house.model.User">
+		select usr_no usrNo, usr_sts usrSts, usr_nm usrNm, usr_id usrId, usr_pw usrPw, usr_ss usrSs, termsYN, ps_platform psPlatform, ps_id psId, ps_revokeYN psRevokeYN, ps_appVer psAppVer, ps_deviceNM deviceNM, modified, created
+		from HS_USER_DB
+		where usr_id = #{usrId}
+	</select>
+	
+	<select id="getUserByNo" resultType="com.house.model.User">
+		select usr_no usrNo, usr_sts usrSts, usr_nm usrNm, usr_id usrId, usr_pw usrPw, usr_ss usrSs, termsYN, ps_platform psPlatform, ps_id psId, ps_revokeYN psRevokeYN, ps_appVer psAppVer, ps_deviceNM deviceNM, modified, created
+		from HS_USER_DB
+		where usr_no = #{userNo}
+	</select>
+	
+	<insert id="insertLike" parameterType="com.house.model.Like" useGeneratedKeys="true" keyProperty="likeNo" keyColumn="like_no">
+		insert into HS_LIKE_DB (like_no, usr_no, src_type, src_no, cate_no, created)
+			values(to_number(to_char(now(), 'YYYYMMDDHH24MISS') || to_char(
+				(select case count(*) when 0 then 1 else max(to_number(substring(to_char(like_no, '9999999999999999999') from 16), '00000')) + 1 end 
+				from HS_LIKE_DB
+				where to_char(like_no, '9999999999999999999') like ('%' || to_char(now(), 'YYYYMMDDHH24MISS') || '%'))
+			, '00000'), '99999999999999999999'), #{usrNo}, #{srcType}, #{srcNo}, #{cateNo}, #{created})
+	</insert>
+	
+	<delete id="deleteLike">
+		delete from HS_LIKE_DB
+		where like_no = #{likeNo}
+	</delete>
+	
+	<delete id="deleteLikeBySrcNo">
+		delete from HS_LIKE_DB
+		where src_no = #{srcNo}
+	</delete>
+	
+	<delete id="deleteLikeByCateNo">
+		delete from HS_LIKE_DB
+		where cate_no = #{cateNo} and src_type = #{srcType}
+	</delete>
+	
+	<select id="getLikeByNo" resultType="com.house.model.Like">
+		select like_no likeNo, usr_no usrNo, src_type srcType, src_no srcNo, created created
+		from HS_LIKE_DB
+		where like_no = #{likeNo}
+	</select>
+	
+	<select id="getLikeByNoType" resultType="com.house.model.Like">
+		select like_no likeNo, usr_no usrNo, src_type srcType, src_no srcNo, created created
+		from HS_LIKE_DB
+		where usr_no = #{usrNo} and src_no = #{srcNo} and src_type = #{srcType}
+	</select>
+	
+	<select id="getLikeCount" resultType="int">
+		select count(*)
+		from HS_LIKE_DB
+		where src_no = #{srcNo} and src_type = #{srcType}
+	</select>
+	
+	<insert id="insertScrap" parameterType="com.house.model.Scrap" useGeneratedKeys="true" keyProperty="scrapNo" keyColumn="scrap_no">
+		insert into HS_SCRAP_DB (scrap_no, usr_no, src_type, src_no, cate_no, created)
+			values(to_number(to_char(now(), 'YYYYMMDDHH24MISS') || to_char(
+				(select case count(*) when 0 then 1 else max(to_number(substring(to_char(scrap_no, '9999999999999999999') from 16), '00000')) + 1 end 
+				from HS_SCRAP_DB
+				where to_char(scrap_no, '9999999999999999999') like ('%' || to_char(now(), 'YYYYMMDDHH24MISS') || '%'))
+			, '00000'), '99999999999999999999'), #{usrNo}, #{srcType}, #{srcNo}, #{cateNo}, #{created})
+	</insert>
+	
+	<delete id="deleteScrap">
+		delete from HS_SCRAP_DB 
+		where scrap_no = #{scrapNo}
+	</delete>
+	
+	<delete id="deleteScrapBySrcNo">
+		delete from HS_SCRAP_DB 
+		where src_no = #{srcNo}
+	</delete>
+	
+	<delete id="deleteScrapByCateNo">
+		delete from HS_SCRAP_DB 
+		where cate_no = #{cateNo} and src_type = #{srcType}
+	</delete>
+	
+	<select id="getScrapByNo" resultType="com.house.model.Scrap">
+		select scrap_no scrapNo, usr_no usrNo, src_type srcType, src_no srcNo, created created
+		from HS_SCRAP_DB 
+		where scrap_no = #{scrapNo}
+	</select>
+	
+	<select id="getScrapByNoType" resultType="com.house.model.Scrap">
+		select scrap_no scrapNo, usr_no usrNo, src_type srcType, src_no srcNo, created created
+		from HS_SCRAP_DB 
+		where usr_no = #{usrNo} and src_no = #{srcNo} and src_type = #{srcType}
+	</select>
+
+	<select id="getScrapCount" resultType="int">
+		select count(*)
+		from HS_SCRAP_DB
+		where src_no = #{srcNo} and src_type = #{srcType}
+	</select>
+</mapper>

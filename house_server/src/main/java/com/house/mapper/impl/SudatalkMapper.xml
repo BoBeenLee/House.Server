@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.house.mapper.SudatalkMapper">
+	<insert id="insertSudatalk" parameterType="com.house.model.Sudatalk" useGeneratedKeys="true" keyProperty="talkNo" keyColumn="talk_no">
+		insert into HS_SUDATALK_DB (talk_no, usr_no, cate_cd, subject, contents, tag_nm, modified, created)
+			values(to_number(to_char(now(), 'YYYYMMDDHH24MISS') || to_char(
+				(select case count(*) when 0 then 1 else max(to_number(substring(to_char(talk_no, '9999999999999999999') from 16), '00000')) + 1 end 
+				from HS_SUDATALK_DB
+				where to_char(talk_no, '9999999999999999999') like ('%' || to_char(now(), 'YYYYMMDDHH24MISS') || '%'))
+			, '00000'), '99999999999999999999'), #{usrNo}, #{cateCd}, #{subject}, #{contents}, #{tagNm}, #{modified}, #{created})
+	</insert>
+	<update id="updateSudatalk" parameterType="com.house.model.Sudatalk">
+		update HS_SUDATALK_DB
+		set cate_cd = #{cateCd},
+			subject = #{subject},
+			contents = #{contents},
+			tag_nm = #{tagNm},
+			modified = #{modified}
+		where talk_no = #{talkNo}
+	</update>
+	<delete id="deleteSudatalk">
+		delete from HS_SUDATALK_DB
+		where talk_no = #{talkNo}
+	</delete>
+	<select id="getSudatalkByNo" resultType="com.house.model.Sudatalk">
+		select talk_no talkNo, usr_no usrNo, cate_cd cateCd, subject, contents, tag_nm tagNm, modified, created
+		from HS_SUDATALK_DB
+		where talk_no = #{talkNo}
+	</select>
+	<select id="getSudatalksByCateNo" resultType="com.house.model.Sudatalk">
+		select talk_no talkNo, usr_no usrNo, cate_cd cateCd, subject, contents, tag_nm tagNm, modified, created
+		from HS_SUDATALK_DB
+		where cate_cd = #{cateNo}
+	</select>
+	
+	<insert id="insertSudatalkCategory" parameterType="com.house.model.SudatalkCategory">
+		insert into HS_SUDATALK_CATE_DB (cate_no, depth, cate_nm, modified, created)
+			values(
+			(select  case count(*) when 0 then 1 else max(cate_no) + 1 end 
+			from HS_SUDATALK_CATE_DB)
+			, #{depth}, #{cateNm}, #{modified}, #{created})
+	</insert>
+	<update id="updateSudatalkCategory" parameterType="com.house.model.SudatalkCategory">
+		update HS_SUDATALK_CATE_DB
+		set depth = #{depth}, 
+			cate_nm = #{cateNm}, 
+			modified = #{modified}, 
+			created = #{created}
+		where cate_no = #{cateNo} 
+	</update>
+	<delete id="deleteSudatalkCategory">
+		delete from HS_SUDATALK_CATE_DB
+		where cate_no = #{cateNo} 
+	</delete>
+	<select id="getSudatalkCategoryByNo" resultType="com.house.model.SudatalkCategory">
+		select cate_no cateNo, depth, cate_nm cateNm, modified, created
+		from HS_SUDATALK_CATE_DB
+		where cate_no = #{cateNo}
+	</select>
+	
+	<insert id="insertComment" parameterType="com.house.model.Comment">
+		insert into HS_SUDATALK_COMMENT_DB (comment_no, usr_no, src_no, depth, contents, modified, created)
+			values(to_number(to_char(now(), 'YYYYMMDDHH24MISS') || to_char(
+				(select case count(*) when 0 then 1 else max(to_number(substring(to_char(comment_no, '9999999999999999999') from 16), '00000')) + 1 end 
+				from HS_SUDATALK_COMMENT_DB
+				where to_char(comment_no, '9999999999999999999') like ('%' || to_char(now(), 'YYYYMMDDHH24MISS') || '%'))
+			, '00000'), '99999999999999999999'), #{usrNo}, #{srcNo}, #{depth}, #{contents}, #{modified}, #{created})
+	</insert>
+	<update id="updateComment" parameterType="com.house.model.Comment">
+		update HS_SUDATALK_COMMENT_DB
+		set contents = #{contents},
+			modified = #{modified}
+		where comment_no = #{commentNo}
+	</update>
+	<delete id="deleteComment">
+		delete from HS_SUDATALK_COMMENT_DB
+		where comment_no = #{commentNo}
+	</delete>
+	<select id="getCommentByNo" resultType="com.house.model.Comment">
+		select comment_no commentNo, sc.usr_no usrNo, us.usr_id usrId, us.usr_nm usrNm, ex_thumb_url profileImg, sc.src_no srcNo, depth, contents, sc.modified modified, sc.created created
+		from HS_SUDATALK_COMMENT_DB sc join HS_USER_DB us
+		on sc.usr_no = us.usr_no
+		join hs_attach_db at
+		on at.src_type = #{profileType} and at.upload_usr = sc.usr_no
+		where comment_no = #{commentNo}
+	</select>
+	<select id="getCommentBySrcNo" resultType="com.house.model.Comment">
+		select comment_no commentNo, sc.usr_no usrNo, us.usr_id usrId, us.usr_nm usrNm, ex_thumb_url profileImg, sc.src_no srcNo, depth, contents, sc.modified modified, sc.created created
+		from HS_SUDATALK_COMMENT_DB sc join HS_USER_DB us
+		on sc.usr_no = us.usr_no
+		left join hs_attach_db at
+		on at.src_type = #{profileType} and at.upload_usr = sc.usr_no
+		where sc.src_no = #{srcNo}
+		<if test="commentNo != 0">
+			and comment_no &gt; #{commentNo}
+		</if>
+		order by created asc
+		limit #{pageNum}
+	</select>
+</mapper>
