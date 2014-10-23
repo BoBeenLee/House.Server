@@ -1,5 +1,4 @@
- package com.house.model.code;
- 
+package com.house.model.code;
 
 public class AP0002 {
 

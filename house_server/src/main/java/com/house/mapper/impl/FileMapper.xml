@@ -2,24 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.house.mapper.FileMapper">
 	<insert id="insertAttach" parameterType="com.house.model.Attach" useGeneratedKeys="true" keyProperty="attachNo" keyColumn="attach_no">
-		insert into HS_ATTACH_DB (attach_no, src_type, src_no, src_seq, name, in_url, ex_url, ex_thumb_url, upload_usr, modified, created)
+		insert into HS_ATTACH_DB (attach_no, src_type, src_no, src_seq, name, in_url, ex_url, upload_usr, modified, created)
 			values(to_number(to_char(now(), 'YYYYMMDDHH24MISS') || to_char(
 				(select case count(*) when 0 then 1 else max(to_number(substring(to_char(attach_no, '9999999999999999999') from 16), '00000')) + 1 end 
 				from HS_ATTACH_DB
 				where to_char(attach_no, '9999999999999999999') like ('%' || to_char(now(), 'YYYYMMDDHH24MISS') || '%'))
 			, '00000'), '99999999999999999999'), #{srcType}, #{srcNo}, #{srcSeq}, #{name}, #{inUrl}, 
-			#{exUrl}, #{exThumUrl}, #{uploadUsr}, #{modified}, #{created})
+			#{exUrl}, #{uploadUsr}, #{modified}, #{created})
 	</insert>
 	
 	<update id="updateAttach" parameterType="com.house.model.Attach">
 		update HS_ATTACH_DB
 		set	src_type = #{srcType},
 			src_no = #{srcNo}, 
-			name = #{name},
 			src_seq = #{srcSeq}, 
 			in_url = #{inUrl}, 
 			ex_url = #{exUrl}, 
-			ex_thumb_url = #{exThumUrl},
 			upload_usr = #{uploadUsr}, 
 			modified = #{modified} 
 		where attach_no = #{attachNo}
@@ -35,11 +33,6 @@
 		where src_type = #{srcType} and src_no = #{srcNo}
 	</delete>
 	
-	<delete id="deleteAttachsByCateNo">
-		delete from HS_ATTACH_DB
-		where src_type = #{srcType} and cate_no = #{cateNo}
-	</delete>
-	
 	<select id="getAttachByNoType" resultType="com.house.model.Attach">
 		select attach_no attachNo, src_type srcType, src_no srcNo, src_seq srcSeq, in_url inUrl, ex_url exUrl, upload_usr uploadUsr, modified, created
 		from HS_ATTACH_DB
@@ -50,11 +43,5 @@
 		<if test="uploadUsr != 0">
 		and upload_usr = #{uploadUsr}
 		</if>
-	</select>
-	
-	<select id="getAttachByExUrl" resultType="com.house.model.Attach">
-		select attach_no attachNo, src_type srcType, src_no srcNo, src_seq srcSeq, in_url inUrl, ex_url exUrl, upload_usr uploadUsr, modified, created
-		from HS_ATTACH_DB
-		where ex_url = #{exUrl}
 	</select>
 </mapper>

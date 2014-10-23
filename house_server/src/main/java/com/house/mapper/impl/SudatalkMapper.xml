@@ -88,13 +88,8 @@
 		select comment_no commentNo, sc.usr_no usrNo, us.usr_id usrId, us.usr_nm usrNm, ex_thumb_url profileImg, sc.src_no srcNo, depth, contents, sc.modified modified, sc.created created
 		from HS_SUDATALK_COMMENT_DB sc join HS_USER_DB us
 		on sc.usr_no = us.usr_no
-		left join hs_attach_db at
+		join hs_attach_db at
 		on at.src_type = #{profileType} and at.upload_usr = sc.usr_no
 		where sc.src_no = #{srcNo}
-		<if test="commentNo != 0">
-			and comment_no &gt; #{commentNo}
-		</if>
-		order by created asc
-		limit #{pageNum}
 	</select>
 </mapper>

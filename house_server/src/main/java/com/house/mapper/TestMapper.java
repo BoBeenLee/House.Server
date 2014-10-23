@@ -1,12 +1,11 @@
 package com.house.mapper;
 
-import com.house.model.JavaBean;
 import java.util.List;
 
+import com.house.model.JavaBean;
+
 public interface TestMapper {
-	public int deleteTest(int no);
-
-	public int addTest(JavaBean javaBean);
-
+	public int deleteTest(int id);
+	public int addTest(JavaBean test);
 	public List<JavaBean> getTests();
 }

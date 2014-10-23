@@ -2,6 +2,7 @@ package com.house.model.reqcode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.house.model.code.CM0006.CM0006Img;
 
 public class CM0006 {
 	private String usrId;
@@ -9,68 +10,59 @@ public class CM0006 {
 	private String custName;
 	private int usrSts;
 	private CM0006Img usrImg;
+	
 	private String resultYn;
-
+	
 	@JsonProperty("_usr_id")
 	public String getUsrId() {
-		return this.usrId;
+		return usrId;
 	}
-
 	@JsonProperty("_usr_pw")
 	public String getUsrPw() {
-		return this.usrPw;
+		return usrPw;
 	}
-
 	@JsonProperty("_custname")
 	public String getCustName() {
-		return this.custName;
+		return custName;
 	}
-
 	@JsonProperty("_sts")
 	public int getUsrSts() {
-		return this.usrSts;
+		return usrSts;
 	}
-
 	@JsonProperty("_usr_img")
 	public CM0006Img getUsrImg() {
-		return this.usrImg;
+		return usrImg;
 	}
-
 	@JsonIgnore
 	public String getResultYn() {
-		return this.resultYn;
+		return resultYn;
 	}
-
+	
 	@JsonIgnore
 	public void setUsrId(String usrId) {
 		this.usrId = usrId;
 	}
-
 	@JsonIgnore
 	public void setUsrPw(String usrPw) {
 		this.usrPw = usrPw;
 	}
-
 	@JsonIgnore
 	public void setCustName(String custName) {
 		this.custName = custName;
 	}
-
 	@JsonIgnore
 	public void setUsrSts(int usrSts) {
 		this.usrSts = usrSts;
 	}
-
 	@JsonIgnore
 	public void setUsrImg(CM0006Img usrImg) {
 		this.usrImg = usrImg;
 	}
-
 	@JsonProperty("_rslt_yn")
 	public void setResultYn(String resultYn) {
 		this.resultYn = resultYn;
 	}
-
+	
 	public static class CM0006Img {
 		@JsonProperty("_img_nm")
 		public String imgNm;

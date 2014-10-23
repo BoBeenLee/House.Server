@@ -9,50 +9,39 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.house.model.User;
 
+
 public class RegisterUserDetails implements UserDetails {
-	private static Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>() {
-		{
-			add(new SimpleGrantedAuthority("ROLE_USER"));
-		}
-	};
-
-	private User user;
-
-	public RegisterUserDetails(User user) {
-		this.user = user;
-	}
-
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return grantedAuthorities;
-	}
-
-	public String getUsername() {
-		return user.getUsrNm();
-	}
-
-
-	public String getPassword() {
-		return user.getUsrPw();
-	}
-
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+    private static Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(){{
+        add(new SimpleGrantedAuthority("read"));
+        add(new SimpleGrantedAuthority("write"));
+        add(new SimpleGrantedAuthority("ROLE_USER"));
+    }};
+    
+    private User user;
+    
+    public RegisterUserDetails(User user) {
+        this.user = user;
+    }
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorities;
+    }
+    public String getUsername() {
+        return user.getUsrId();
+    }
+    public boolean isAccountNonExpired() {
+        return isEnabled();
+    }
+    public boolean isAccountNonLocked() {
+        return isEnabled();
+    }
+    public boolean isCredentialsNonExpired() {
+        return isEnabled();
+    }
+    public boolean isEnabled() {
+        return true;
+    }
+    public String getPassword() {
+        return user.getUsrPw();
+    }
+    
 }

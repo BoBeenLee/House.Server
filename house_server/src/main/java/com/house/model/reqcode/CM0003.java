@@ -2,6 +2,7 @@ package com.house.model.reqcode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.house.model.code.CM0003.CM0003Img;
 
 public class CM0003 {
 	private String usrId;
@@ -15,128 +16,107 @@ public class CM0003 {
 	private String deviceNM;
 	private int usrSts;
 	private CM0003Img usrImg;
+	
 	private String resultYn;
 
 	@JsonProperty("_usr_id")
 	public String getUsrId() {
-		return this.usrId;
+		return usrId;
 	}
-
 	@JsonProperty("_usr_pw")
 	public String getUsrPw() {
-		return this.usrPw;
+		return usrPw;
 	}
-
 	@JsonProperty("_custname")
 	public String getCustName() {
-		return this.custName;
+		return custName;
 	}
-
 	@JsonProperty("_term_yn")
 	public String getTermsYN() {
-		return this.termsYN;
+		return termsYN;
 	}
-
 	@JsonProperty("_ps_platform")
 	public String getPsPlatform() {
-		return this.psPlatform;
+		return psPlatform;
 	}
-
 	@JsonProperty("_ps_id")
 	public String getPsId() {
-		return this.psId;
+		return psId;
 	}
-
 	@JsonProperty("_ps_revoke_yn")
 	public String getPsRevokeYN() {
-		return this.psRevokeYN;
+		return psRevokeYN;
 	}
-
 	@JsonProperty("_ps_app_ver")
 	public String getPsAppVer() {
-		return this.psAppVer;
+		return psAppVer;
 	}
-
 	@JsonProperty("_devie_nm")
 	public String getDeviceNM() {
-		return this.deviceNM;
+		return deviceNM;
 	}
-
 	@JsonProperty("_sts")
 	public int getUsrSts() {
-		return this.usrSts;
+		return usrSts;
 	}
-
 	@JsonProperty("_usr_img")
 	public CM0003Img getUsrImg() {
-		return this.usrImg;
+		return usrImg;
 	}
-
 	@JsonIgnore
 	public String getResultYn() {
-		return this.resultYn;
+		return resultYn;
 	}
 
 	@JsonProperty("_usr_id")
 	public void setUsrId(String usrId) {
 		this.usrId = usrId;
 	}
-
 	@JsonProperty("_usr_pw")
 	public void setUsrPw(String usrPw) {
 		this.usrPw = usrPw;
 	}
-
 	@JsonProperty("_custname")
 	public void setCustName(String custName) {
 		this.custName = custName;
 	}
-
 	@JsonProperty("_term_yn")
 	public void setTermsYN(String termsYN) {
 		this.termsYN = termsYN;
 	}
-
 	@JsonProperty("_ps_platform")
 	public void setPsPlatform(String psPlatform) {
 		this.psPlatform = psPlatform;
 	}
-
 	@JsonProperty("_ps_id")
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-
 	@JsonProperty("_ps_revoke_yn")
 	public void setPsRevokeYN(String psRevokeYN) {
 		this.psRevokeYN = psRevokeYN;
 	}
-
 	@JsonProperty("_ps_app_ver")
 	public void setPsAppVer(String psAppVer) {
 		this.psAppVer = psAppVer;
 	}
-
 	@JsonProperty("_devie_nm")
 	public void setDeviceNM(String deviceNM) {
 		this.deviceNM = deviceNM;
 	}
-
 	@JsonProperty("_sts")
 	public void setUsrSts(int usrSts) {
 		this.usrSts = usrSts;
 	}
-
 	@JsonProperty("_usr_img")
 	public void setUsrImg(CM0003Img usrImg) {
 		this.usrImg = usrImg;
 	}
-
 	@JsonProperty("_rslt_yn")
 	public void setResultYn(String resultYn) {
 		this.resultYn = resultYn;
 	}
-
+	
 	public static class CM0003Img {
 		@JsonProperty("_img_nm")
 		public String imgNm;

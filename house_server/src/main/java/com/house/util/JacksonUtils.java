@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 public class JacksonUtils {
 	public static <T> String objectToJson(T obj) {
 		ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
-        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-
+		mapper.disable(MapperFeature.AUTO_DETECT_FIELDS);
+//        mapper.disable(MapperFeature.USE_GETTERS_AS_SETTERS);
+        
 		String json = null;
 		try {
 			json = mapper.writeValueAsString(obj);

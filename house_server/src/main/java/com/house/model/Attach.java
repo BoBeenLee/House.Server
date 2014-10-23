@@ -1,14 +1,15 @@
 package com.house.model;
 
-import com.house.util.DateUtils;
 import java.sql.Timestamp;
+import java.text.ParseException;
+
+import com.house.util.DateUtils;
 
 public class Attach {
 	private long attachNo;
 	private int srcType;
 	private long srcNo;
 	private int srcSeq;
-	private int cateNo;
 	private String name;
 	private String inUrl;
 	private String inThumUrl;
@@ -18,130 +19,95 @@ public class Attach {
 	private String modified;
 	private String created;
 	private TransferMultipartFile transferMultipartFile;
-
-	public int getCateNo() {
-		return this.cateNo;
-	}
-
-	public void setCateNo(int cateNo) {
-		this.cateNo = cateNo;
-	}
-
+	
 	public long getAttachNo() {
-		return this.attachNo;
+		return attachNo;
 	}
-
 	public void setAttachNo(long attachNo) {
 		this.attachNo = attachNo;
 	}
-
 	public int getSrcType() {
-		return this.srcType;
+		return srcType;
 	}
-
 	public void setSrcType(int srcType) {
-		if (1 == srcType) {
-			this.srcType = 1;
-		} else if (2 == srcType) {
-			this.srcType = 2;
-		} else if (3 == srcType) {
-			this.srcType = 3;
-		}
+		if(SrcType.PROFILE_TYPE == srcType)
+			this.srcType = SrcType.PROFILE_TYPE;
+		else if(SrcType.INTERIOR_TYPE == srcType)
+			this.srcType = SrcType.INTERIOR_TYPE;
+		else if(SrcType.SUDATALK_TYPE == srcType)
+			this.srcType = SrcType.SUDATALK_TYPE;
 	}
-
 	public long getSrcNo() {
-		return this.srcNo;
+		return srcNo;
 	}
-
 	public void setSrcNo(long srcNo) {
 		this.srcNo = srcNo;
 	}
-
 	public int getSrcSeq() {
-		return this.srcSeq;
+		return srcSeq;
 	}
-
 	public void setSrcSeq(int srcSeq) {
 		this.srcSeq = srcSeq;
 	}
-
 	public String getName() {
-		return this.name;
+		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getInUrl() {
-		return this.inUrl;
+		return inUrl;
 	}
-
 	public void setInUrl(String inUrl) {
 		this.inUrl = inUrl;
 	}
-
 	public String getExUrl() {
-		return this.exUrl;
+		return exUrl;
 	}
-
 	public void setExUrl(String exUrl) {
 		this.exUrl = exUrl;
 	}
-
 	public long getUploadUsr() {
-		return this.uploadUsr;
+		return uploadUsr;
 	}
-
 	public void setUploadUsr(long uploadUsr) {
 		this.uploadUsr = uploadUsr;
 	}
-
 	public TransferMultipartFile getTransferMultipartFile() {
-		return this.transferMultipartFile;
+		return transferMultipartFile;
 	}
-
-	public void setTransferMultipartFile(
-			TransferMultipartFile transferMultipartFile) {
+	public void setTransferMultipartFile(TransferMultipartFile transferMultipartFile) {
 		this.transferMultipartFile = transferMultipartFile;
 	}
-
+	// yyyy-MM-dd HH:mm:ss
 	public void setModifiedByDate(Timestamp timestamp) {
-		this.modified = DateUtils.dateToString(timestamp, DateUtils.dateForm1);
+		this.modified = DateUtils.dateToString(timestamp);
 	}
-
+	// yyyy-MM-dd HH:mm:ss
 	public void setCreatedByDate(Timestamp timestamp) {
-		this.created = DateUtils.dateToString(timestamp, DateUtils.dateForm1);
+		this.created = DateUtils.dateToString(timestamp);
 	}
-
 	public String getModified() {
-		return this.modified;
+		return modified;
 	}
-
 	public String getCreated() {
-		return this.created;
+		return created;
 	}
-
 	public void setModified(String modified) {
 		this.modified = modified;
 	}
-
 	public void setCreated(String created) {
 		this.created = created;
 	}
-
 	public String getInThumUrl() {
-		return this.inThumUrl;
+		return inThumUrl;
 	}
-
 	public String getExThumUrl() {
-		return this.exThumUrl;
+		return exThumUrl;
 	}
-
 	public void setInThumUrl(String inThumUrl) {
 		this.inThumUrl = inThumUrl;
 	}
-
 	public void setExThumUrl(String exThumUrl) {
 		this.exThumUrl = exThumUrl;
 	}

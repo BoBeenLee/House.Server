@@ -1,11 +1,21 @@
 package com.house.model;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+
 import org.springframework.web.multipart.MultipartFile;
+
+/* 
+ * originalFilename, name : 파일이름
+ * content : 파일
+ * contentType : 파일 타입
+ * size : 사이즈
+ * isEmpty : 파일이 비어있는지 여부
+ */
 
 public class TransferMultipartFile implements Serializable {
 	private String originalFilename;
@@ -14,12 +24,12 @@ public class TransferMultipartFile implements Serializable {
 	private String contentType;
 	private long size;
 	private boolean isEmpty;
-
-	public TransferMultipartFile() {
-	}
-
+	
+	public TransferMultipartFile(){ 	}
+	
 	public TransferMultipartFile(String originalFilename, String name,
 			byte[] content, String contentType, long size, boolean isEmpty) {
+		super();
 		this.originalFilename = originalFilename;
 		this.name = name;
 		this.content = content;
@@ -29,29 +39,29 @@ public class TransferMultipartFile implements Serializable {
 	}
 
 	public TransferMultipartFile(String originalFilename, String name,
-			InputStream inputStream, String contentType, long size,
-			boolean isEmpty) throws IOException {
+			InputStream inputStream, String contentType, long size, boolean isEmpty) throws IOException {
+		super();
 		this.originalFilename = originalFilename;
 		this.name = name;
 		this.contentType = contentType;
 		this.size = size;
 		this.isEmpty = isEmpty;
-
-		this.content = new byte[(int) (this.size + 1L)];
-		inputStream.read(this.content);
+		
+		content = new byte[(int) (this.size + 1)];
+		inputStream.read(content);
 	}
-
-	public TransferMultipartFile(MultipartFile mf) throws IOException {
+	
+	public TransferMultipartFile(MultipartFile mf) throws IOException{
 		this.isEmpty = mf.isEmpty();
 		this.size = mf.getSize();
 		this.originalFilename = mf.getOriginalFilename();
 		this.name = mf.getName();
 		this.contentType = mf.getContentType();
-
-		this.content = new byte[(int) (this.size + 1L)];
-		mf.getInputStream().read(this.content);
+		
+		content = new byte[(int) (this.size + 1)];
+		mf.getInputStream().read(content);
 	}
-
+	
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
@@ -75,10 +85,14 @@ public class TransferMultipartFile implements Serializable {
 	public void setEmpty(boolean isEmpty) {
 		this.isEmpty = isEmpty;
 	}
-
+	
 	public String getContentType() {
 		return this.contentType;
 	}
+
+//	public InputStream getInputStream() throws IOException {
+//		return new ByteArrayInputStream(content);
+//	}
 
 	public String getName() {
 		return this.name;
@@ -97,10 +111,10 @@ public class TransferMultipartFile implements Serializable {
 	}
 
 	public void transferTo(File dest) throws IOException, IllegalStateException {
-		new FileOutputStream(dest).write(this.content);
+		new FileOutputStream(dest).write(content);
 	}
-
+	
 	public byte[] getContent() {
-		return this.content;
+		return content;
 	}
 }

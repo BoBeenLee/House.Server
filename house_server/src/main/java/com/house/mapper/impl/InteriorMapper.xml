@@ -87,13 +87,8 @@
 		select comment_no commentNo, ic.usr_no usrNo, us.usr_id usrId, us.usr_nm usrNm, ex_thumb_url profileImg, ic.src_no srcNo, depth, contents, ic.modified modified, ic.created created
 		from HS_INTERIOR_COMMENT_DB ic join HS_USER_DB us
 		on ic.usr_no = us.usr_no
-		left join hs_attach_db at
+		join hs_attach_db at
 		on at.src_type = #{profileType} and at.upload_usr = ic.usr_no
 		where ic.src_no = #{srcNo}
-		<if test="commentNo != 0">
-			and comment_no &gt; #{commentNo}
-		</if>
-		order by created asc
-		limit #{pageNum}
 	</select>
 </mapper>

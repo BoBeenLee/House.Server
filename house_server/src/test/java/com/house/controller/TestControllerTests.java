@@ -1,16 +1,15 @@
 package com.house.controller;
 
-import com.house.model.Data;
-import com.house.model.JavaBean;
-import com.house.model.TransferMultipartFile;
-import com.house.util.FileUtils;
-import com.house.util.JacksonUtils;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,37 +19,38 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.result.StatusResultMatchers;
-import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.house.model.Data;
+import com.house.model.JavaBean;
+import com.house.model.TransferMultipartFile;
+import com.house.util.FileUtils;
+import com.house.util.JacksonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestControllerTests extends AbstractContextControllerTests {
 	private MockMvc mockMvc;
+
 	@Autowired
 	Environment environment;
 
 	@Before
 	public void setup() throws Exception {
-		this.mockMvc = ((DefaultMockMvcBuilder) MockMvcBuilders
-				.webAppContextSetup(this.wac).alwaysExpect(
-						MockMvcResultMatchers.status().isOk())).build();
+		this.mockMvc = webAppContextSetup(this.wac).alwaysExpect(
+				status().isOk()).build();
 	}
 
 	public JavaBean getJavaBean() {
 		JavaBean javaBean = new JavaBean();
-
+		/*
+		 * int num; String content; byte[] image; boolean check;
+		 */
 		javaBean.setNum(1);
 		javaBean.setName("이");
 		javaBean.setContent("Hello World! 안녕");
 		javaBean.setImage("이미지".getBytes());
 		javaBean.setCheck(true);
 
+		// new MockMultipartFile("test.html", "sdfasdsf".getBytes())
 		TransferMultipartFile mf = null;
 		try {
 			mf = new TransferMultipartFile(new MockMultipartFile("test.html",
@@ -63,119 +63,125 @@ public class TestControllerTests extends AbstractContextControllerTests {
 		return javaBean;
 	}
 
+	// @Test
 	public void readWriteJson() throws Exception {
 		JavaBean javaBean = getJavaBean();
 
+		// System.out.println(JacksonUtils.objectToJson(javaBean));
 		this.mockMvc
 				.perform(
-						MockMvcRequestBuilders
-								.post("/json.app", new Object[0])
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										JacksonUtils.objectToJson(javaBean)
-												.getBytes())).andDo(
-						MockMvcResultHandlers.print());
+						post("/json.app").contentType(
+								MediaType.APPLICATION_JSON).content(
+								JacksonUtils.objectToJson(javaBean).getBytes()))
+				.andDo(print());
+		// andDo( print() - 출력하라 );
 	}
 
+	// @Test
 	public void hash() throws Exception {
 		Data data = new Data();
 
-		data.body = new HashMap();
+		data.body = new HashMap<String, Object>();
 		data.body.put("test", "test");
 		data.body.put("bean", getJavaBean());
-
+		// System.out.println(JacksonUtils.objectToJson(javaBean));
 		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/hash.app", new Object[0])
-						.contentType(MediaType.APPLICATION_JSON)
+				post("/hash.app").contentType(MediaType.APPLICATION_JSON)
 						.content(JacksonUtils.objectToJson(data).getBytes()))
-				.andDo(MockMvcResultHandlers.print());
+				.andDo(print());
+		// andDo( print() - 출력하라 );
 	}
 
+	// @Test
 	public void addJavaBean() throws Exception {
 		JavaBean javaBean = getJavaBean();
 
 		this.mockMvc
 				.perform(
-						MockMvcRequestBuilders
-								.post("/add/test.app", new Object[0])
-								.contentType(MediaType.APPLICATION_JSON)
-								.content(
-										JacksonUtils.objectToJson(javaBean)
-												.getBytes())).andDo(
-						MockMvcResultHandlers.print());
+						post("/add/test.app").contentType(
+								MediaType.APPLICATION_JSON).content(
+								JacksonUtils.objectToJson(javaBean).getBytes()))
+				.andDo(print());
 	}
 
+//	@Test
 	public void getTest() throws Exception {
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/test", new Object[0])).andDo(
-				MockMvcResultHandlers.print());
+//		File file = new File("/usr");
+//		
+//		System.out.println(file.getAbsolutePath());
+		
+//		Properties props = System.getProperties();
+//		for (Enumeration en = props.propertyNames(); en.hasMoreElements();) {
+//			String key = (String) en.nextElement();
+//			String value = props.getProperty(key);
+//			System.out.println(key + "=" + value);
+//		}
+		// System.out.println(System.getProperty("catalina.home"));
+		this.mockMvc.perform(post("/test")).andDo(print());
 	}
 
+	// @Test
 	public void getTest1() throws Exception {
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/test1", new Object[0])).andDo(
-				MockMvcResultHandlers.print());
+		this.mockMvc.perform(post("/test1")).andDo(print());
 	}
 
+//	 @Test
 	public void getTests() throws Exception {
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/get/tests", new Object[0]))
-				.andDo(MockMvcResultHandlers.print());
+		this.mockMvc.perform(post("/get/tests")).andDo(print());
 	}
 
+//	 @Test
 	public void upload() throws Exception {
+		// I use FileUpload directly and this is the approach I use:
+		// Code:
+		// File newFiles= new
+		// File(request.getSession().getServletContext().getRealPath("/WEB-INF/files/"),
+		// uploadFile.getName());
+		// Remember to deal with the uploadFile.getName() quirk with IE.
+		// Good Luck - not sure if this will work in your case,
 		JavaBean javaBean = getJavaBean();
 
-		System.out.println(JacksonUtils.objectToJson(javaBean));
+		 System.out.println(JacksonUtils.objectToJson(javaBean));
 		this.mockMvc
 				.perform(
-						MockMvcRequestBuilders
-								.post("/upload", new Object[0])
-								.contentType(MediaType.APPLICATION_JSON)
+						post("/upload").contentType(MediaType.APPLICATION_JSON)
 								.content(
 										JacksonUtils.objectToJson(javaBean)
-												.getBytes())).andDo(
-						MockMvcResultHandlers.print());
+												.getBytes())).andDo(print());
 	}
-
-	public void pathTest() {
+	
+//	@Test
+	public void pathTest(){
 		String path = "/abc/bds/sd/img.jpeg";
-
+		
 		System.out.println(path.substring(path.lastIndexOf('/') + 1));
 		System.out.println(path.substring(path.lastIndexOf('.') + 1));
+		
 	}
-
-	public void writeFile() throws IllegalStateException, IOException {
+	
+//	@Test
+	public void writeFile() throws IllegalStateException, IOException{
 		TransferMultipartFile mf = null;
 		try {
-			mf = new TransferMultipartFile(new MockMultipartFile(
-					"test123.html", "sdfasdsdsdsf".getBytes()));
+			mf = new TransferMultipartFile(new MockMultipartFile("test123.html",
+					"sdfasdsdsdsf".getBytes()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(FileUtils.getCurrentRequest().getSession()
-				.getServletContext().getRealPath("/")
+		
+		System.out.println(FileUtils.getCurrentRequest().getSession().getServletContext()
+				.getRealPath("/")
 				+ "/image/" + mf.getName());
 		FileUtils.transferTo(mf.getName(), mf.getContent());
 	}
-
-	public void byteToString() throws Exception {
-		String name = "test.png";
-		String type = "";
-		if (name.indexOf('.') == -1) {
-			type = ".png";
-		} else {
-			type = name.substring(name.indexOf('.'));
-			name = name.replaceAll(type, "");
-		}
-		System.out.println(name + " - -" + type);
-	}
-
+	
 	@Test
-	public void showImage() throws Exception {
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.get(
-						"/house/image/2014091500342000001picture",
-						new Object[0])).andDo(MockMvcResultHandlers.print());
+	public void byteToString() throws Exception{
+//		ArrayList<String> strList = new ArrayList<String>();
+//		
+//		strList.set(0,  "Hello");
+//		
 	}
+	
+	
 }

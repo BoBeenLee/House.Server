@@ -10,11 +10,10 @@
 	 
 	<http realm="App API" auto-config="false" use-expressions="true"
 		create-session="stateless" entry-point-ref="CustomAuthenticationEntryPoint">
-		<intercept-url pattern="/house/image/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')" />
+		<intercept-url pattern="/image/**" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')" />
 		<intercept-url pattern="/house/CM0001.app" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')" />
-		<intercept-url pattern="/house/CM0003.app" access="hasAnyRole('ROLE_ANONYMOUS', 'ROLE_USER')" />
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')" />
-		 
+		
 		<anonymous username="guest" granted-authority="ROLE_ANONYMOUS" />
 		
 		<custom-filter ref="authenticationTokenProcessingFilter"

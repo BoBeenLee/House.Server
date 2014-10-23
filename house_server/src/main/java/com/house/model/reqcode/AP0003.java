@@ -1,16 +1,17 @@
 package com.house.model.reqcode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.house.model.code.AP0003.AP0003Comment;
 
 public class AP0003 implements Serializable {
 	private int type;
 	private long reqPoNo;
-	private long reqCommentNo;
-	private int reqCommentCnt;
 	private String usrId;
+	
 	private long brdNo;
 	private String brdNm;
 	private String brdId;
@@ -27,250 +28,184 @@ public class AP0003 implements Serializable {
 	private int brdLikeCnt;
 	private int brdScrapCnt;
 	private List<String> brdImg;
+	
 	private int brdCommentCnt;
-	private long brdCommentLastNo;
 	private List<AP0003Comment> brdComment;
 
-	@JsonProperty("_req_comment_no")
-	public long getReqCommentNo() {
-		return this.reqCommentNo;
-	}
-
-	@JsonProperty("_req_comment_cnt")
-	public int getReqCommentCnt() {
-		return this.reqCommentCnt;
-	}
-
-	@JsonIgnore
-	public long getBrdCommentLastNo() {
-		return this.brdCommentLastNo;
-	}
+	
 
 	@JsonProperty("_type")
 	public int getType() {
-		return this.type;
+		return type;
 	}
-
 	@JsonProperty("_req_po_no")
 	public long getReqPoNo() {
-		return this.reqPoNo;
+		return reqPoNo;
 	}
 
 	@JsonIgnore
 	public void setBrdNo(long brdNo) {
 		this.brdNo = brdNo;
 	}
-
 	@JsonIgnore
 	public String getBrdNm() {
-		return this.brdNm;
+		return brdNm;
 	}
-
 	@JsonIgnore
 	public String getBrdId() {
-		return this.brdId;
+		return brdId;
 	}
-
 	@JsonIgnore
 	public String getBrdProfileImg() {
-		return this.brdProfileImg;
+		return brdProfileImg;
 	}
-
 	@JsonIgnore
 	public String getBrdSubject() {
-		return this.brdSubject;
+		return brdSubject;
 	}
-
 	@JsonIgnore
-	public byte[] getBrdContents() {
-		return this.brdContents;
+	public byte[]  getBrdContents() {
+		return brdContents;
 	}
-
 	@JsonIgnore
 	public String getBrdTag() {
-		return this.brdTag;
+		return brdTag;
 	}
-
 	@JsonIgnore
 	public String getBrdCateNm() {
-		return this.brdCateNm;
+		return brdCateNm;
 	}
-
 	@JsonIgnore
 	public int getBrdCate() {
-		return this.brdCate;
+		return brdCate;
 	}
-
 	@JsonIgnore
 	public String getBrdCreated() {
-		return this.brdCreated;
+		return brdCreated;
 	}
-
 	@JsonIgnore
 	public int getBrdLikeCnt() {
-		return this.brdLikeCnt;
+		return brdLikeCnt;
 	}
-
 	@JsonIgnore
 	public List<String> getBrdImg() {
-		return this.brdImg;
+		return brdImg;
 	}
-
 	@JsonIgnore
 	public int getBrdScrapCnt() {
-		return this.brdScrapCnt;
+		return brdScrapCnt;
 	}
-
 	@JsonIgnore
 	public int getBrdCommentCnt() {
-		return this.brdCommentCnt;
+		return brdCommentCnt;
 	}
-
 	@JsonIgnore
 	public List<AP0003Comment> getBrdComment() {
-		return this.brdComment;
+		return brdComment;
 	}
-
 	@JsonProperty("_usr_id")
 	public String getUsrId() {
-		return this.usrId;
+		return usrId;
 	}
-
 	@JsonIgnore
 	public int getBrdLikeState() {
-		return this.brdLikeState;
+		return brdLikeState;
 	}
-
 	@JsonIgnore
 	public int getBrdScrapState() {
-		return this.brdScrapState;
+		return brdScrapState;
 	}
-
 	@JsonIgnore
 	public String getBrdModified() {
-		return this.brdModified;
+		return brdModified;
 	}
-
-	@JsonIgnore
-	public void setReqCommentNo(long reqCommentNo) {
-		this.reqCommentNo = reqCommentNo;
-	}
-
-	@JsonIgnore
-	public void setReqCommentCnt(int reqCommentCnt) {
-		this.reqCommentCnt = reqCommentCnt;
-	}
-
-	@JsonProperty("_brd_comment_last_no")
-	public void setBrdCommentLastNo(long brdCommentLastNo) {
-		this.brdCommentLastNo = brdCommentLastNo;
-	}
-
+	
+	
 	@JsonIgnore
 	public void setType(int type) {
 		this.type = type;
 	}
-
 	@JsonIgnore
 	public void setReqPoNo(long reqPoNo) {
 		this.reqPoNo = reqPoNo;
 	}
-
 	@JsonProperty("_brd_no")
 	public long getBrdNo() {
-		return this.brdNo;
+		return brdNo;
 	}
-
 	@JsonProperty("_brd_nm")
 	public void setBrdNm(String brdNm) {
 		this.brdNm = brdNm;
 	}
-
 	@JsonProperty("_brd_id")
 	public void setBrdId(String brdId) {
 		this.brdId = brdId;
 	}
-
 	@JsonProperty("_brd_profile_img")
 	public void setBrdProfileImg(String brdProfileImg) {
 		this.brdProfileImg = brdProfileImg;
 	}
-
 	@JsonProperty("_brd_subject")
 	public void setBrdSubject(String brdSubject) {
 		this.brdSubject = brdSubject;
 	}
-
 	@JsonProperty("_brd_contents")
 	public void setBrdContents(byte[] brdContents) {
 		this.brdContents = brdContents;
 	}
-
 	@JsonProperty("_brd_tag")
 	public void setBrdTag(String brdTag) {
 		this.brdTag = brdTag;
 	}
-
 	@JsonProperty("_brd_cate_nm")
 	public void setBrdCateNm(String brdCateNm) {
 		this.brdCateNm = brdCateNm;
 	}
-
 	@JsonProperty("_brd_cate")
 	public void setBrdCate(int brdCate) {
 		this.brdCate = brdCate;
 	}
-
 	@JsonProperty("_brd_created")
 	public void setBrdCreated(String brdCreated) {
 		this.brdCreated = brdCreated;
 	}
-
 	@JsonProperty("_brd_like_cnt")
 	public void setBrdLikeCnt(int brdLikeCnt) {
 		this.brdLikeCnt = brdLikeCnt;
 	}
-
 	@JsonProperty("_brd_img")
 	public void setBrdImg(List<String> brdImg) {
 		this.brdImg = brdImg;
 	}
-
 	@JsonProperty("_brd_scrap_cnt")
 	public void setBrdScrapCnt(int brdScrapCnt) {
 		this.brdScrapCnt = brdScrapCnt;
 	}
-
 	@JsonProperty("_brd_comment_cnt")
 	public void setBrdCommentCnt(int brdCommentCnt) {
 		this.brdCommentCnt = brdCommentCnt;
 	}
-
 	@JsonProperty("_brd_comment")
 	public void setBrdComment(List<AP0003Comment> brdComment) {
 		this.brdComment = brdComment;
 	}
-
 	@JsonIgnore
 	public void setUsrId(String usrId) {
 		this.usrId = usrId;
 	}
-
 	@JsonProperty("_brd_like_state")
 	public void setBrdLikeState(int brdLikeState) {
 		this.brdLikeState = brdLikeState;
 	}
-
 	@JsonProperty("_brd_scrap_state")
 	public void setBrdScrapState(int brdScrapState) {
 		this.brdScrapState = brdScrapState;
 	}
-
 	@JsonProperty("_brd_modified")
 	public void setBrdModified(String brdModified) {
 		this.brdModified = brdModified;
 	}
-
+	
 	public static class AP0003Comment {
 		@JsonProperty("_brd_comment_no")
 		public long brdCommentNo;
@@ -283,6 +218,6 @@ public class AP0003 implements Serializable {
 		@JsonProperty("_brd_comment_profile_img")
 		public String brdCommentProfileImg;
 		@JsonProperty("_brd_comment_contents")
-		public byte[] brdCommentContents;
+		public byte[]  brdCommentContents;
 	}
 }

@@ -1,7 +1,11 @@
 package com.house.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JavaBean implements Serializable {
 	private int num;
@@ -10,52 +14,41 @@ public class JavaBean implements Serializable {
 	private byte[] image;
 	private boolean check;
 	private TransferMultipartFile upload;
-
+	
 	public String getName() {
-		return this.name;
+		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public int getNum() {
-		return this.num;
+		return num;
 	}
-
 	public void setNum(int num) {
 		this.num = num;
 	}
-
 	public String getContent() {
-		return this.content;
+		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public byte[] getImage() {
-		return this.image;
+		return image;
 	}
-
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-
 	@JsonIgnore
 	public boolean isCheck() {
-		return this.check;
+		return check;
 	}
-
 	public void setCheck(boolean check) {
 		this.check = check;
 	}
-
 	public TransferMultipartFile getUpload() {
-		return this.upload;
+		return upload;
 	}
-
 	public void setUpload(TransferMultipartFile upload) {
 		this.upload = upload;
 	}

@@ -1,4 +1,5 @@
 package com.house.model;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
  * @JsonProperty("_usr_pw") get 에 했을 경우 _usr_pw json 형태로 주고 set을 했을경우 _usr_pw 로 인식
- * 		@JsonProperty("_usr_pw")
-			@JsonProperty("_usr_id")
-			@JsonIgnore
+ * //		@JsonProperty("_usr_pw")
+	//		@JsonProperty("_usr_id")
+	//		@JsonIgnore
  */
 
 public  class APICode  < T > implements Serializable {
@@ -33,15 +34,15 @@ public  class APICode  < T > implements Serializable {
 	public void setTranData(List<T> tranData) {
 		this.tranData = tranData;
 	}
-	@JsonProperty("_error_cd")
+	@JsonIgnore
 	public void setErrorCd(String errorCd) {
 		this.errorCd = errorCd;
 	}
-	@JsonProperty("_error_msg")
+	@JsonIgnore
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
 	}
-	@JsonProperty("_error_action")
+	@JsonIgnore
 	public void setErrorAction(int errorAction) {
 		this.errorAction = errorAction;
 	}
@@ -55,21 +56,21 @@ public  class APICode  < T > implements Serializable {
 	public List<T> getTranData() {
 		return tranData;
 	}
-	@JsonIgnore
+	@JsonProperty("_error_cd")
 	public String getErrorCd() {
 		return errorCd;
 	}
-	@JsonIgnore
+	@JsonProperty("_error_msg")
 	public String getErrorMsg() {
 		return errorMsg;
 	}
-	@JsonIgnore
+	@JsonProperty("_error_action")
 	public int getErrorAction() {
 		return errorAction;
 	}
 	
   public enum Status{
-        
+        /** User API Status Code */
         SUCCESS("000", "SUCCESS"), 
         ERROR("999", "ERROR"), 
         USER_NOT_FOUND("001", "USER_NOT_FOUND"), 

@@ -1,63 +1,78 @@
 package com.house.model.code;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
+import com.house.model.User;
 
 public class CM0001 implements Serializable {
 	private String usrId;
 	private String usrPw;
+	private String regNo;
 	private String custName;
+	private String firstLogin;
 	private String token;
-	private String profileImg;
-
+	
 	@JsonProperty("_usr_id")
 	public void setUsrId(String usrId) {
 		this.usrId = usrId;
 	}
-
 	@JsonProperty("_usr_pw")
 	public void setUsrPw(String usrPw) {
 		this.usrPw = usrPw;
 	}
-
+	@JsonIgnore
+	public void setRegNo(String regNo) {
+		this.regNo = regNo;
+	}
 	@JsonIgnore
 	public void setCustName(String custName) {
 		this.custName = custName;
 	}
-
+	@JsonIgnore
+	public void setFirstLogin(String firstLogin) {
+		this.firstLogin = firstLogin;
+	}
 	@JsonIgnore
 	public void setToken(String token) {
 		this.token = token;
 	}
 
-	@JsonIgnore
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
-	}
-
 	@JsonProperty("_usr_id")
 	public String getUsrId() {
-		return this.usrId;
+		return usrId;
 	}
-
 	@JsonIgnore
 	public String getUsrPw() {
-		return this.usrPw;
+		return usrPw;
 	}
-
+	@JsonProperty("_regno")
+	public String getRegNo() {
+		return regNo;
+	}
 	@JsonProperty("_custname")
 	public String getCustName() {
-		return this.custName;
+		return custName;
 	}
-
+	@JsonProperty("_firstlogin")
+	public String getFirstLogin() {
+		return firstLogin;
+	}
 	@JsonProperty("_token")
 	public String getToken() {
-		return this.token;
+		return token;
 	}
-
-	@JsonProperty("_profile_img")
-	public String getProfileImg() {
-		return this.profileImg;
+	
+	public User newInstance() {
+		User user = new User();
+		user.setUsrId(usrId);
+		user.setUsrPw(usrPw);
+		/*
+		 * 	public String regNo;
+			public String custName;
+			public String firstLogin;
+		 */
+		return user;
 	}
 }

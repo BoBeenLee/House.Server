@@ -7,43 +7,38 @@ public class AP0007 {
 	private int type;
 	private String brdId;
 	private long brdNo;
+	
 	private String resultYn;
 
 	@JsonProperty("_type")
 	public int getType() {
-		return this.type;
+		return type;
 	}
-
 	@JsonProperty("_brd_id")
 	public String getBrdId() {
-		return this.brdId;
+		return brdId;
 	}
-
 	@JsonProperty("_brd_no")
 	public long getBrdNo() {
-		return this.brdNo;
+		return brdNo;
 	}
-
 	@JsonIgnore
 	public String getResultYn() {
-		return this.resultYn;
+		return resultYn;
 	}
 
 	@JsonIgnore
 	public void setType(int type) {
 		this.type = type;
 	}
-
 	@JsonIgnore
 	public void setBrdId(String brdId) {
 		this.brdId = brdId;
 	}
-
 	@JsonIgnore
 	public void setBrdNo(long articleId) {
 		this.brdNo = articleId;
 	}
-
 	@JsonProperty("_rslt_yn")
 	public void setResultYn(String resultYn) {
 		this.resultYn = resultYn;

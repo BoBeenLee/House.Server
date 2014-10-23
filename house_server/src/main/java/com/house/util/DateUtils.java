@@ -10,25 +10,24 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class DateUtils {
-//	yyyy-MM-dd'T'hh:mm:ssZ - facebook
-    public static final String dateForm1 = "yyyy-MM-dd'T'HH:mm:ssZ";
-	public static final String dateForm2 = "yyyy-MM-dd";
+//	yyyy-MM-dd HH:mm:ss 
+	public static String dateForm = "yyyy-MM-dd HH:mm:ss";
 	
-	public static String dateToString(Timestamp timestamp, String dateForm){
+	public static String dateToString(Timestamp timestamp){
 		DateTimeFormatter dateStringFormat = DateTimeFormat.forPattern(dateForm);
 		return dateStringFormat.print(timestamp.getTime());
 	}
 
-	public static Timestamp stringToDate(String string, String dateForm) {
+	public static Timestamp stringToDate(String string) throws ParseException {
 		DateTimeFormatter dateStringFormat = DateTimeFormat.forPattern(dateForm);
 		DateTime time = dateStringFormat.parseDateTime(string);
 		
 		return new Timestamp(time.getMillis());
 	}
 	
-	public static String currentTime(String dateForm){
+	public static String currentTime(){
 		Calendar calendar = Calendar.getInstance();
 		Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
-		return dateToString(timestamp, dateForm);
+		return dateToString(timestamp);
 	}
 }

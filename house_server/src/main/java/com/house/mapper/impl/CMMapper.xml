@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.house.mapper.CMMapper">
-	<select id="getCM0001"  resultType="com.house.model.code.CM0001">
-		select usr_id usrId, usr_nm custName, ex_url profileImg
-		from hs_user_db us left join hs_attach_db at
-		on us.usr_no = at.upload_usr and at.src_type = #{profileType}
-		where us.usr_id = #{usrId}
-	</select>
-
 	<select id="getCM0005"  resultType="com.house.model.code.CM0005">
 		select usr_id usrId, usr_nm custName, usr_sts usrSts, ex_url profileImg
 		from hs_user_db us join hs_attach_db at

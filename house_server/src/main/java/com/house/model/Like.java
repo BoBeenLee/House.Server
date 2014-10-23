@@ -1,64 +1,48 @@
 package com.house.model;
 
-import com.house.util.DateUtils;
 import java.sql.Timestamp;
+import java.text.ParseException;
+
+import com.house.util.DateUtils;
 
 public class Like {
 	private long likeNo;
 	private long usrNo;
 	private int srcType;
 	private long srcNo;
-	private int cateNo;
 	private String created;
-
-	public int getCateNo() {
-		return this.cateNo;
-	}
-
-	public void setCateNo(int cateNo) {
-		this.cateNo = cateNo;
-	}
-
+	
 	public long getLikeNo() {
-		return this.likeNo;
+		return likeNo;
 	}
-
 	public void setLikeNo(long likeNo) {
 		this.likeNo = likeNo;
 	}
-
 	public long getUsrNo() {
-		return this.usrNo;
+		return usrNo;
 	}
-
 	public void setUsrNo(long usrNo) {
 		this.usrNo = usrNo;
 	}
-
 	public int getSrcType() {
-		return this.srcType;
+		return srcType;
 	}
-
 	public void setSrcType(int srcType) {
 		this.srcType = srcType;
 	}
-
 	public long getSrcNo() {
-		return this.srcNo;
+		return srcNo;
 	}
-
 	public void setSrcNo(long srcNo) {
 		this.srcNo = srcNo;
 	}
-
+	// yyyy-MM-dd HH:mm:ss
 	public void setCreatedByDate(Timestamp timestamp) {
-		this.created = DateUtils.dateToString(timestamp, DateUtils.dateForm1);
+		this.created = DateUtils.dateToString(timestamp);
 	}
-
 	public String getCreated() {
-		return this.created;
+		return created;
 	}
-
 	public void setCreated(String created) {
 		this.created = created;
 	}

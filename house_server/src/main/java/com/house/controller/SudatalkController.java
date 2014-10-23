@@ -15,80 +15,101 @@ import com.house.model.Data;
 import com.house.model.Sudatalk;
 import com.house.model.TransferMultipartFile;
 import com.house.service.SudatalkService;
+import com.house.util.BeanUtils;
 import com.house.util.JacksonUtils;
 
 @Controller
 public class SudatalkController {
 	@Autowired
 	SudatalkService sudatalkService;
-
-	@RequestMapping(value = { "/add/sudatalk" }, method = { RequestMethod.POST })
-	@ResponseBody
-	public Data addSudatalk(@RequestBody Data data) {
+	
+	@RequestMapping(value = "/add/sudatalk", method = RequestMethod.POST)
+	public @ResponseBody
+	Data addSudatalk(@RequestBody Data data) {
 		HashMap<String, Object> body = data.body;
 
-		Sudatalk sudatalk = (Sudatalk) JacksonUtils
-				.jsonToObject(JacksonUtils.objectToJson(body.get("sudatalk")),
-						Sudatalk.class);
-		TransferMultipartFile[] multipartFiles = (TransferMultipartFile[]) JacksonUtils
-				.jsonToObject(JacksonUtils.objectToJson(body.get("imgs")),
-						TransferMultipartFile[].class);
+		Sudatalk sudatalk =  JacksonUtils.jsonToObject(
+				JacksonUtils.objectToJson(body.get("sudatalk")), Sudatalk.class);
+		TransferMultipartFile[] multipartFiles = JacksonUtils.jsonToObject(
+				JacksonUtils.objectToJson(body.get("imgs")),
+				TransferMultipartFile[].class);
 		Attach[] attachs = new Attach[multipartFiles.length];
-		for (int i = 0; i < attachs.length; i++) {
+		for(int i=0; i<attachs.length; i++){
 			Attach attach = new Attach();
 			attach.setTransferMultipartFile(multipartFiles[i]);
 			attachs[i] = attach;
 		}
-		System.out.println("status : "
-				+ this.sudatalkService.addSudatalk(sudatalk, attachs));
-
+//		try {
+//			System.out.println(BeanUtils.getBeanGetValue(sudatalk));
+//			
+//			for(TransferMultipartFile multipartFile : multipartFiles){
+//				System.out.println(BeanUtils.getBeanGetValue(multipartFile));
+//			}
+//			System.out.println("test");
+//		} catch(Exception e){
+//			e.printStackTrace();
+//		}
+		System.out.println("status : " + sudatalkService.addSudatalk(sudatalk, attachs));
+		
 		Data responseData = new Data();
 		responseData.setStatus(Data.Status.OK);
 		return responseData;
 	}
-
-	@RequestMapping(value = { "/modify/sudatalk" }, method = { RequestMethod.POST })
-	@ResponseBody
-	public Data modifySudatalk(@RequestBody Data data) {
+	
+	@RequestMapping(value = "/modify/sudatalk", method = RequestMethod.POST)
+	public @ResponseBody
+	Data modifySudatalk(@RequestBody Data data) {
 		HashMap<String, Object> body = data.body;
 
-		Sudatalk sudatalk = (Sudatalk) JacksonUtils
-				.jsonToObject(JacksonUtils.objectToJson(body.get("sudatalk")),
-						Sudatalk.class);
-		TransferMultipartFile[] multipartFiles = (TransferMultipartFile[]) JacksonUtils
-				.jsonToObject(JacksonUtils.objectToJson(body.get("imgs")),
-						TransferMultipartFile[].class);
+		Sudatalk sudatalk =  JacksonUtils.jsonToObject(
+				JacksonUtils.objectToJson(body.get("sudatalk")), Sudatalk.class);
+		TransferMultipartFile[] multipartFiles = JacksonUtils.jsonToObject(
+				JacksonUtils.objectToJson(body.get("imgs")),
+				TransferMultipartFile[].class);
 		Attach[] attachs = new Attach[multipartFiles.length];
-		for (int i = 0; i < attachs.length; i++) {
+		for(int i=0; i<attachs.length; i++){
 			Attach attach = new Attach();
 			attach.setTransferMultipartFile(multipartFiles[i]);
 			attachs[i] = attach;
 		}
-		System.out.println("status : "
-				+ this.sudatalkService.modifySudatalk(sudatalk, attachs));
-
+//		try {
+//			System.out.println(BeanUtils.getBeanGetValue(sudatalk));
+//			
+//			for(TransferMultipartFile multipartFile : multipartFiles){
+//				System.out.println(BeanUtils.getBeanGetValue(multipartFile));
+//			}
+//			System.out.println("test");
+//		} catch(Exception e){
+//			e.printStackTrace();
+//		}
+		System.out.println("status : " + sudatalkService.modifySudatalk(sudatalk, attachs));
+		
 		Data responseData = new Data();
 		responseData.setStatus(Data.Status.OK);
 		return responseData;
 	}
-
-	@RequestMapping(value = { "/remove/sudatalk" }, method = { RequestMethod.POST })
-	@ResponseBody
-	public Data removeSudatalk(@RequestParam("sno") long talkNo) {
+	
+	@RequestMapping(value = "/remove/sudatalk", method = RequestMethod.POST)
+	public @ResponseBody
+	Data removeSudatalk(@RequestParam("sno") long talkNo) {
 		boolean isSudatalk = false;
-
-		isSudatalk = this.sudatalkService.removeSudatalk(talkNo);
-
+		
+		isSudatalk = sudatalkService.removeSudatalk(talkNo);
+		
 		Data responseData = new Data();
 		responseData.setStatus(Data.Status.OK);
 		return responseData;
 	}
-
-	@RequestMapping(value = { "/get/sudatalk" }, method = { RequestMethod.POST })
-	@ResponseBody
-	public Data getSudatalkByNo(@RequestParam("sno") long talkNo) {
-		Sudatalk sudatalk = this.sudatalkService.getSudatalkByNo(talkNo);
-
+	
+	@RequestMapping(value = "/get/sudatalk", method = RequestMethod.POST)
+	public @ResponseBody
+	Data getSudatalkByNo(@RequestParam("sno") long talkNo) {
+		Sudatalk sudatalk = sudatalkService.getSudatalkByNo(talkNo);
+//		try {
+//			System.out.println(BeanUtils.getBeanGetValue(sudatalk));
+//		} catch(Exception e){
+//			e.printStackTrace();
+//		}
 		Data responseData = new Data();
 		responseData.body.put("sudatalk", sudatalk);
 		responseData.setStatus(Data.Status.OK);

@@ -1,12 +1,13 @@
 package com.house.controller;
 
-import com.house.model.Data;
-import com.house.model.TransferMultipartFile;
-import com.house.model.User;
-import com.house.util.JacksonUtils;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.HashMap;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,54 +17,53 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.result.StatusResultMatchers;
-import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.house.model.Data;
+import com.house.model.TransferMultipartFile;
+import com.house.model.User;
+import com.house.util.JacksonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerTests extends AbstractContextControllerTests {
 	private MockMvc mockMvc;
+
 	@Autowired
 	Environment environment;
 
 	@Before
 	public void setup() throws Exception {
-		this.mockMvc = ((DefaultMockMvcBuilder) MockMvcBuilders
-				.webAppContextSetup(this.wac).alwaysExpect(
-						MockMvcResultMatchers.status().isOk())).build();
+		this.mockMvc = webAppContextSetup(this.wac).alwaysExpect(
+				status().isOk()).build();
 	}
-
+	
+//	@Test
 	public void login() throws Exception {
 		User user = new User();
-
-		String usrId = "id12";
-		String userPw = "pw12";
-
-		user.setUsrId(usrId);
-		user.setUsrPw(userPw);
-
-		this.mockMvc.perform(
-				MockMvcRequestBuilders
-						.post("/auth/user.app?token=sdfdsf", new Object[0])
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(JacksonUtils.objectToJson(user).getBytes()))
-				.andDo(MockMvcResultHandlers.print());
+		String userId, userPw;
+		
+		userId = "id12"; userPw = "pw12";
+		
+		user.setUsrId(userId); user.setUsrPw(userPw);
+		
+		this.mockMvc
+				.perform(
+						post("/auth/user.app?token=sdfdsf").contentType(
+								MediaType.APPLICATION_JSON).content(
+								JacksonUtils.objectToJson(user).getBytes()))
+				.andDo(print());
 	}
 
+	
 	@Test
 	public void addUser() throws Exception {
 		Data data = new Data();
 		User user = getUser();
 		user.setUsrId("id2");
 		user.setUsrPw("pw2");
-
+		
 		data.body.put("user", user);
-
+		
 		TransferMultipartFile mf = null;
 		try {
 			mf = new TransferMultipartFile(new MockMultipartFile("test12.html",
@@ -72,27 +72,32 @@ public class UserControllerTests extends AbstractContextControllerTests {
 			e.printStackTrace();
 		}
 		data.body.put("img", mf);
-
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/add/user.app", new Object[0])
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(JacksonUtils.objectToJson(data).getBytes()))
-				.andDo(MockMvcResultHandlers.print());
+		
+		// System.out.println(JacksonUtils.objectToJson(data));
+		this.mockMvc
+				.perform(
+						post("/add/user.app").contentType(
+								MediaType.APPLICATION_JSON).content(
+								JacksonUtils.objectToJson(data).getBytes()))
+				.andDo(print());
 	}
 
+//	@Test
 	public void removeUser() throws Exception {
 		int userNo = 1;
-
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/remove/user.app?uno=" + userNo,
-						new Object[0])).andDo(MockMvcResultHandlers.print());
+		
+		this.mockMvc
+				.perform(
+						post("/remove/user.app?uno=" + userNo))
+				.andDo(print());
 	}
 
+//	@Test
 	public void modifyUser() throws Exception {
 		Data data = new Data();
-
+		
 		data.body.put("user", getUser());
-
+		
 		TransferMultipartFile mf = null;
 		try {
 			mf = new TransferMultipartFile(new MockMultipartFile("test.html",
@@ -101,19 +106,22 @@ public class UserControllerTests extends AbstractContextControllerTests {
 			e.printStackTrace();
 		}
 		data.body.put("img", mf);
-
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/modify/user.app", new Object[0])
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(JacksonUtils.objectToJson(data).getBytes()))
-				.andDo(MockMvcResultHandlers.print());
+		
+//		System.out.println(JacksonUtils.objectToJson(javaBean));
+		this.mockMvc
+				.perform(
+						post("/modify/user.app").contentType(
+								MediaType.APPLICATION_JSON).content(
+								JacksonUtils.objectToJson(data).getBytes()))
+				.andDo(print());
 	}
-
+	
+//	@Test
 	public void printUser() throws Exception {
 		Data data = new Data();
-
+		
 		data.body.put("user", getUser());
-
+		
 		TransferMultipartFile mf = null;
 		try {
 			mf = new TransferMultipartFile(new MockMultipartFile("test.html",
@@ -122,23 +130,48 @@ public class UserControllerTests extends AbstractContextControllerTests {
 			e.printStackTrace();
 		}
 		data.body.put("img", mf);
-
+		
 		System.out.println(JacksonUtils.objectToJson(data));
-
-		String usrId = "id1";
-
-		System.out.println(JacksonUtils.objectToJson(getUser()));
-
-		this.mockMvc.perform(
-				MockMvcRequestBuilders.post("/get/user.app", new Object[0])
-						.contentType(MediaType.APPLICATION_JSON)
-						.content("{\"usrId\":\"id1\"}")).andDo(
-				MockMvcResultHandlers.print());
+		
+		
+		String userId = "id1";
+		// @JsonProperty("_usr_id")
+//		this.mockMvc
+//		.perform(
+//				post("/get/user.app?usrId=" + userId))
+//		.andDo(print());
+		
+		
+		 System.out.println(JacksonUtils.objectToJson(getUser()));
+//		 System.out.println("{\"usrNo\":0,\"usrSts\":2,\"usrNm\":\"name1\",\"usrId\":\"id1\",\"usrPw\":\"pw1\",\"usrSs\":\"ss\",\"termsYN\":\"Y\",\"psPlatform\":\"3.1.10\",\"psId\":\"s\",\"psRevokeYN\":\"Y\",\"psAppVer\":\"3.1\",\"deviceNM\":\"nexus\",\"modified\":null,\"created\":null}");
+//		 System.out.println("{\"usrId\":\"id1\"}");
+		this.mockMvc
+		.perform(
+				post("/get/user.app")
+				.contentType(
+						MediaType.APPLICATION_JSON).content(
+								"{\"usrId\":\"id1\"}"))
+		.andDo(print());
 	}
+	
 
 	public User getUser() {
 		User user = new User();
-
+		/*
+			private int usrSts;
+			private String usrNm;
+			private String usrId;
+			private String usrPw;
+			private String usrSs;
+			private String termsYN;
+			private String psPlatform;
+			private String psId;
+			private String psRevokeYN;
+			private String psAppVer;
+			private String deviceNM;
+			private String modified;
+			private String created;
+		 */			
 		user.setUsrSts(2);
 		user.setUsrNm("name1");
 		user.setUsrId("id1");

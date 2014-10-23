@@ -1,9 +1,16 @@
 package com.house.model;
 
-import com.house.util.DateUtils;
 import java.sql.Timestamp;
+import java.text.ParseException;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.house.util.DateUtils;
 
 public class User {
+//	@JsonIgnore
+//	@JsonProperty("_usr_id")
 	private long usrNo;
 	private int usrSts;
 	private String usrNm;
@@ -18,132 +25,104 @@ public class User {
 	private String deviceNM;
 	private String modified;
 	private String created;
+	
 	private String token;
-
+	
 	public long getUsrNo() {
-		return this.usrNo;
+		return usrNo;
 	}
-
 	public void setUsrNo(long usrNo) {
 		this.usrNo = usrNo;
 	}
-
 	public int getUsrSts() {
-		return this.usrSts;
+		return usrSts;
 	}
-
 	public void setUsrSts(int usrSts) {
 		this.usrSts = usrSts;
 	}
-
 	public String getUsrNm() {
-		return this.usrNm;
+		return usrNm;
 	}
-
 	public void setUsrNm(String usrNm) {
 		this.usrNm = usrNm;
 	}
-
 	public String getUsrId() {
-		return this.usrId;
+		return usrId;
 	}
-
 	public void setUsrId(String usrId) {
 		this.usrId = usrId;
 	}
-
 	public String getUsrPw() {
-		return this.usrPw;
+		return usrPw;
 	}
-
 	public void setUsrPw(String usrPw) {
 		this.usrPw = usrPw;
 	}
-
 	public String getUsrSs() {
-		return this.usrSs;
+		return usrSs;
 	}
-
 	public void setUsrSs(String usrSs) {
 		this.usrSs = usrSs;
 	}
-
 	public String getTermsYN() {
-		return this.termsYN;
+		return termsYN;
 	}
-
 	public void setTermsYN(String termsYN) {
 		this.termsYN = termsYN;
 	}
-
 	public String getPsPlatform() {
-		return this.psPlatform;
+		return psPlatform;
 	}
-
 	public void setPsPlatform(String psPlatform) {
 		this.psPlatform = psPlatform;
 	}
-
 	public String getPsId() {
-		return this.psId;
+		return psId;
 	}
-
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-
 	public String getPsRevokeYN() {
-		return this.psRevokeYN;
+		return psRevokeYN;
 	}
-
 	public void setPsRevokeYN(String psRevokeYN) {
 		this.psRevokeYN = psRevokeYN;
 	}
-
 	public String getPsAppVer() {
-		return this.psAppVer;
+		return psAppVer;
 	}
-
 	public void setPsAppVer(String psAppVer) {
 		this.psAppVer = psAppVer;
 	}
-
 	public String getDeviceNM() {
-		return this.deviceNM;
+		return deviceNM;
 	}
-
 	public void setDeviceNM(String deviceNM) {
 		this.deviceNM = deviceNM;
 	}
-
+	// yyyy-MM-dd HH:mm:ss
 	public void setModifiedByDate(Timestamp timestamp) {
-		this.modified = DateUtils.dateToString(timestamp, DateUtils.dateForm1);
+		this.modified = DateUtils.dateToString(timestamp);
 	}
-
+	// yyyy-MM-dd HH:mm:ss
 	public void setCreatedByDate(Timestamp timestamp) {
-		this.created = DateUtils.dateToString(timestamp, DateUtils.dateForm1);
+		this.created = DateUtils.dateToString(timestamp);
 	}
-
 	public String getModified() {
-		return this.modified;
+		return modified;
 	}
-
 	public String getCreated() {
-		return this.created;
+		return created;
 	}
-
 	public void setModified(String modified) {
 		this.modified = modified;
 	}
-
 	public void setCreated(String created) {
 		this.created = created;
 	}
-
 	public String getToken() {
-		return this.token;
+		return token;
 	}
-
 	public void setToken(String token) {
 		this.token = token;
 	}

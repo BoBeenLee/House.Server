@@ -15,128 +15,107 @@ public class CM0003 {
 	private String deviceNM;
 	private int usrSts;
 	private CM0003Img usrImg;
+	
 	private String resultYn;
 
 	@JsonIgnore
 	public String getUsrId() {
-		return this.usrId;
+		return usrId;
 	}
-
 	@JsonIgnore
 	public String getUsrPw() {
-		return this.usrPw;
+		return usrPw;
 	}
-
 	@JsonIgnore
 	public String getCustName() {
-		return this.custName;
+		return custName;
 	}
-
 	@JsonIgnore
 	public String getTermsYN() {
-		return this.termsYN;
+		return termsYN;
 	}
-
 	@JsonIgnore
 	public String getPsPlatform() {
-		return this.psPlatform;
+		return psPlatform;
 	}
-
 	@JsonIgnore
 	public String getPsId() {
-		return this.psId;
+		return psId;
 	}
-
 	@JsonIgnore
 	public String getPsRevokeYN() {
-		return this.psRevokeYN;
+		return psRevokeYN;
 	}
-
 	@JsonIgnore
 	public String getPsAppVer() {
-		return this.psAppVer;
+		return psAppVer;
 	}
-
 	@JsonIgnore
 	public String getDeviceNM() {
-		return this.deviceNM;
+		return deviceNM;
 	}
-
 	@JsonIgnore
 	public int getUsrSts() {
-		return this.usrSts;
+		return usrSts;
 	}
-
 	@JsonIgnore
 	public CM0003Img getUsrImg() {
-		return this.usrImg;
+		return usrImg;
 	}
-
 	@JsonProperty("_rslt_yn")
 	public String getResultYn() {
-		return this.resultYn;
+		return resultYn;
 	}
-
+	
 	@JsonProperty("_usr_id")
 	public void setUsrId(String usrId) {
 		this.usrId = usrId;
 	}
-
 	@JsonProperty("_usr_pw")
 	public void setUsrPw(String usrPw) {
 		this.usrPw = usrPw;
 	}
-
 	@JsonProperty("_custname")
 	public void setCustName(String custName) {
 		this.custName = custName;
 	}
-
 	@JsonProperty("_term_yn")
 	public void setTermsYN(String termsYN) {
 		this.termsYN = termsYN;
 	}
-
 	@JsonProperty("_ps_platform")
 	public void setPsPlatform(String psPlatform) {
 		this.psPlatform = psPlatform;
 	}
-
 	@JsonProperty("_ps_id")
 	public void setPsId(String psId) {
 		this.psId = psId;
 	}
-
 	@JsonProperty("_ps_revoke_yn")
 	public void setPsRevokeYN(String psRevokeYN) {
 		this.psRevokeYN = psRevokeYN;
 	}
-
 	@JsonProperty("_ps_app_ver")
 	public void setPsAppVer(String psAppVer) {
 		this.psAppVer = psAppVer;
 	}
-
 	@JsonProperty("_devie_nm")
 	public void setDeviceNM(String deviceNM) {
 		this.deviceNM = deviceNM;
 	}
-
 	@JsonProperty("_sts")
 	public void setUsrSts(int usrSts) {
 		this.usrSts = usrSts;
 	}
-
 	@JsonIgnore
 	public void setResultYn(String resultYn) {
 		this.resultYn = resultYn;
 	}
-
 	@JsonProperty("_usr_img")
 	public void setUsrImg(CM0003Img usrImg) {
 		this.usrImg = usrImg;
 	}
-
+	
 	public static class CM0003Img {
 		@JsonProperty("_img_nm")
 		public String imgNm;

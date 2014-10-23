@@ -1,63 +1,77 @@
 package com.house.model.reqcode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.house.model.User;
+
 public class CM0001 implements Serializable {
-	private String usrId;
-	private String usrPw;
-	private String custName;
-	private String token;
-	private String profileImg;
+    public String usrId;
 
-	@JsonProperty("_usr_id")
-	public void setUsrId(String usrId) {
-		this.usrId = usrId;
-	}
+    public String usrPw;
+    public String regNo;
+    public String custName;
+    public String firstLogin;
+    public String token;
 
-	@JsonIgnore
-	public void setUsrPw(String usrPw) {
-		this.usrPw = usrPw;
-	}
+    @JsonProperty("_usr_id")
+    public void setUsrId(String usrId) {
+        this.usrId = usrId;
+    }
 
-	@JsonProperty("_custname")
-	public void setCustName(String custName) {
-		this.custName = custName;
-	}
+    @JsonIgnore
+    public void setUsrPw(String usrPw) {
+        this.usrPw = usrPw;
+    }
 
-	@JsonProperty("_token")
-	public void setToken(String token) {
-		this.token = token;
-	}
+    @JsonProperty("_regno")
+    public void setRegNo(String regNo) {
+        this.regNo = regNo;
+    }
 
-	@JsonProperty("_profile_img")
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
-	}
+    @JsonProperty("_custname")
+    public void setCustName(String custName) {
+        this.custName = custName;
+    }
 
-	@JsonIgnore
-	public String getProfileImg() {
-		return this.profileImg;
-	}
+    @JsonProperty("_firstlogin")
+    public void setFirstLogin(String firstLogin) {
+        this.firstLogin = firstLogin;
+    }
 
-	@JsonProperty("_usr_id")
-	public String getUsrId() {
-		return this.usrId;
-	}
+    @JsonProperty("_token")
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	@JsonProperty("_usr_pw")
-	public String getUsrPw() {
-		return this.usrPw;
-	}
+    @JsonProperty("_usr_id")
+    public String getUsrId() {
+        return usrId;
+    }
 
-	@JsonIgnore
-	public String getCustName() {
-		return this.custName;
-	}
+    @JsonProperty("_usr_pw")
+    public String getUsrPw() {
+        return usrPw;
+    }
 
-	@JsonIgnore
-	public String getToken() {
-		return this.token;
-	}
+    @JsonIgnore
+    public String getRegNo() {
+        return regNo;
+    }
+    
+    @JsonIgnore
+    public String getCustName() {
+        return custName;
+    }
+    
+    @JsonIgnore
+    public String getFirstLogin() {
+        return firstLogin;
+    }
+    
+    @JsonIgnore
+    public String getToken() {
+        return token;
+    }
 }
